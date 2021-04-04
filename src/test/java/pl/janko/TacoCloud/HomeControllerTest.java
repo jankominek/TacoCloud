@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class) //adnotacja do robienia testów przez Junit  !!!!!!!!!!!
-@WebMvcTest(HomeController.class) // test na mocku
+@WebMvcTest() // test na mocku
 public class HomeControllerTest {
 
     @Autowired
