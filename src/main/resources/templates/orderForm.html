@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+</head>
+
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1>Zamów swoje taco : </h1>
+
+
+    <a th:href="@{/design}" id="another">
+        <img th:src="@{/images/taco.png}"/>
+    </a>
+
+    <h3>Adres dostarczenia taco : </h3>
+    <label for="name">Imie i nazwisko</label>
+    <input type="text" th:field="*{name}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">pole obowiazkowe !</span>
+    <br/>
+
+    <label for="street">Ulica: </label>
+    <input type="text" th:field="*{street}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('street')}"
+          th:errors="*{street}">pole obowiazkowe !</span>
+    <br/>
+
+    <label for="city">Miejscowość: </label>
+    <input type="text" th:field="*{city}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('city')}"
+          th:errors="*{city}">pole obowiazkowe !</span>
+    <br/>
+
+    <label for="state">Województwo: </label>
+    <input type="text" th:field="*{state}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('state')}"
+          th:errors="*{state}">pole obowiazkowe !</span>
+    <br/>
+
+    <label for="zip">Kod pocztowy: : </label>
+    <input type="text" th:field="*{zip}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('zip')}"
+          th:errors="*{zip}">pole obowiazkowe !</span>
+    <br/>
+
+    <h3>Sposób płatności: </h3>
+    <label for="ccNumber">Numer karty: : </label>
+    <input type="text" th:field="*{ccNumber}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccNumber')}"
+          th:errors="*{ccNumber}">blad numeru karty kredytowej!</span>
+    <br/>
+
+    <label for="ccExpiration">Data ważności : </label>
+    <input type="text" th:field="*{ccExpiration}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccExpiration')}"
+          th:errors="*{ccExpiration}">musi byc format MM/RR !</span>
+    <br/>
+
+    <label for="ccCVV">Kod CVV : </label>
+    <input type="text" th:field="*{ccCVV}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('ccCVV')}"
+          th:errors="*{ccCVV}">bledny kod CVV !</span>
+    <br/>
+
+    <input type="submit" value="Zloz zamowienie">
+
+</form>
+
+</body>
+</html>
