@@ -5,14 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import pl.janko.TacoCloud.Ingredient;
 import pl.janko.TacoCloud.Ingredient.Type;
+import pl.janko.TacoCloud.Order;
 import pl.janko.TacoCloud.Taco;
 import pl.janko.TacoCloud.data.IngredientRepository;
+import pl.janko.TacoCloud.data.TacoRepository;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -28,12 +27,23 @@ public class DesignTacoController {
 
 
     private final IngredientRepository ingredientRepo;
+    private TacoRepository designRepo;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepo) {
+    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository designRepo) {
+        this.designRepo = designRepo;
         this.ingredientRepo = ingredientRepo;
     }
 
+    @ModelAttribute(name = "order")
+    public Order order(){
+        return new Order();
+    }
+
+    @ModelAttribute(name = "taco")
+    public Taco taco(){
+        return new Taco();
+    }
 
     @GetMapping
     public String showDesignForm(Model model){
@@ -49,10 +59,12 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Taco design, Errors errors){
+    public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order){
         if(errors.hasErrors()){
             return "design";
         }
+        Taco saved = designRepo.save(design);
+        //order.addDesign(saved);
         log.info("Przetwarzanie obiektu Taco design... " + design);
         return "redirect:/orders/current";
     }
