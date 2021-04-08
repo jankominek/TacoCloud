@@ -16,5 +16,5 @@ public class Taco {
     @Size(min = 5, message = "minimum 5 znakow")
     private String name;
     @Size(min = 1, message = "minimum 1 skladnik")
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
 }
