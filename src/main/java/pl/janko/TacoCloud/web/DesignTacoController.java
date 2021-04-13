@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
+//@Slf4j
 @Controller
 @RequestMapping("/design")
 @SessionAttributes("order")
@@ -54,7 +54,6 @@ public class DesignTacoController {
             System.out.println(type);
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
         }
-        model.addAttribute("design", new Taco());
         return "design";
     }
 
@@ -64,8 +63,8 @@ public class DesignTacoController {
             return "design";
         }
         Taco saved = designRepo.save(design);
-        //order.addDesign(saved);
-        log.info("Przetwarzanie obiektu Taco design... " + design);
+        order.addDesign(saved);
+        //log.info("Przetwarzanie obiektu Taco design... " + design);
         return "redirect:/orders/current";
     }
 
